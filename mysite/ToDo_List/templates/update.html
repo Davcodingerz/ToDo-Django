@@ -1,0 +1,145 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script
+        src="https://code.jquery.com/jquery-3.7.1.js"
+        integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
+        crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+        rel="stylesheet">
+</head>
+<<<<<<< HEAD
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create New Task</title>
+    <!-- Add TailwindCSS CDN if needed -->
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 h-screen flex items-center justify-center">
+    <div class="max-w-lg w-full p-8 bg-white shadow-md rounded-lg">
+        <h1 class="text-2xl font-bold mb-6 text-center">Edit your Task</h1>
+
+        <form method="POST">
+            {% csrf_token %}
+            <div>
+                <label for="id_content" class="block text-gray-700 font-medium">{{form.content.label_tag}}</label>
+                <input type="text" name="content" value="{{form.content.value}}" class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+            </div>
+            <div>    
+                <label class="block text-gray-700 font-medium">{{form.notes.label_tag}}</label>
+                <input type="text" name="notes" value="{{form.notes.value}}" class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+            </div>
+            <div>     
+                {{form.pub_date.label_tag}}
+                <input type="datetime-local" name="pub_date" value="{{form.pub_date.value|date:'Y-m-d\\TH:i'}}" class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">               
+            </div>
+            <div>
+                {{form.due_date.label_tag}}
+                <input type="datetime-local" name="due_date" value="{{form.due_date.value|date:'Y-m-d\\TH:i'|default_if_none:''}}" class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+            </div>
+            <div>
+                {{form.priority.label_tag}}
+                <select name="priority" value="{{form.priority.value}}" class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    <option value="1" {% if form.priority.value == 1 %} selected {% endif %}>Important</option>
+                    <option value="2" {% if form.priority.value == 2 %} selected {% endif %}>Normal</option>
+                    <option value="3" {% if form.priority.value == 3 %} selected {% endif %}>Low Priority</option>
+                </select>              
+            </div>
+            <div>
+                {{form.is_completed.label_tag}}
+                <input type="checkbox" name="is_completed" {% if form.is_completed.value %} checked {% endif %} class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+            </div>
+            <div>
+                <button type="submit">Save changes</button>
+=======
+<body class="bg-gray-100 h-screen flex items-center justify-center">
+    <div class="max-w-lg w-full p-8 bg-white shadow-md rounded-lg">
+        <h1 class="text-2xl font-bold mb-6 text-center">Edit a Task</h1>
+
+        <form method="POST">
+            {% csrf_token %}
+            
+            <!-- Task Content -->
+            <div class="mb-4">
+                <label for="id_content" class="block text-gray-700 font-medium">Task Content</label>
+                <input type="text" name="content" id="id_content" value="{{form.content.value}}" class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Enter task content" required>
+                {% if form.content.errors %}
+                    <p class="text-red-500 text-sm">{{ form.content.errors }}</p>
+                {% endif %}
+            </div>
+
+            <!-- Task Notes -->
+            <div class="mb-4">
+                <label for="id_notes" class="block text-gray-700 font-medium">Task Notes</label>
+                <textarea name="notes" id="id_notes" class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" rows="3" placeholder="Add notes here (optional)">{{form.notes.value}}</textarea>
+                {% if form.notes.errors %}
+                    <p class="text-red-500 text-sm">{{ form.notes.errors }}</p>
+                {% endif %}
+            </div>
+
+            <!-- Publication Date -->
+            <div class="mb-4">
+                <label for="id_pub_date" class="block text-gray-700 font-medium">Publication Date</label>
+                <input type="datetime-local" name="pub_date" value="{{form.pub_date.value | date:'Y-m-d\\TH:i'}}" id="id_pub_date" class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                {% if form.pub_date.errors %}
+                    <p class="text-red-500 text-sm">{{ form.pub_date.errors }}</p>
+                {% endif %}
+            </div>
+
+            <!-- Due Date -->
+            <div class="mb-4">
+                <label for="id_due_date" class="block text-gray-700 font-medium">Due Date</label>
+                <input type="datetime-local" name="due_date" value="{{form.due_date.value | date:'Y-m-d\\TH:i' | default_if_none:''}}" id="id_due_date" class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                {% if form.due_date.errors %}
+                    <p class="text-red-500 text-sm">{{ form.due_date.errors }}</p>
+                {% endif %}
+            </div>
+
+            <!-- Task Priority -->
+            <div class="mb-4">
+                <label for="id_priority" class="block text-gray-700 font-medium">Priority</label>
+                <select name="priority" class="block w-full p-2 border border-gray-300 rounded mt-1"> 
+                    <option value="1" {% if form.priority.value == 1 %}selected{% endif %}>Important</option> 
+                    <option value="2" {% if form.priority.value == 2 %}selected{% endif %}>Normal</option>
+                    <option value="3" {% if form.priority.value == 3 %}selected{% endif %}>Low priority</option> </select>
+                {% if form.priority.errors %}
+                    <p class="text-red-500 text-sm">{{ form.priority.errors }}</p>
+                {% endif %}
+            </div>
+
+            <!-- Completed Status -->
+            <div class="mb-4">
+                <label for="id_is_completed" class="inline-flex items-center text-gray-700 font-medium">
+                    <input type="checkbox" name="is_completed" {% if form.is_completed.value %} checked {% endif %} id="id_is_completed" class="h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-2 focus:ring-blue-500">
+                    <span class="ml-2">Mark as Completed</span>
+                </label>
+                {% if form.is_completed.errors %}
+                    <p class="text-red-500 text-sm">{{ form.is_completed.errors }}</p>
+                {% endif %}
+            </div>
+
+            <!-- Submit Button -->
+            <div class="flex justify-center">
+                <button type="submit" class="w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:ring-2 focus:ring-blue-500">Create Task</button>
+>>>>>>> aed42f80adae609b8fcf7e285c76db7fd04b8c29
+            </div>
+        </form>
+    </div>
+</body>
+<<<<<<< HEAD
+</html>
+
+=======
+>>>>>>> aed42f80adae609b8fcf7e285c76db7fd04b8c29
+</html>
